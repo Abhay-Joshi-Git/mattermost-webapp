@@ -299,7 +299,8 @@ export default class CreateComment extends React.PureComponent {
     }
 
     commentMsgKeyPress = (e) => {
-        if (!UserAgent.isMobile() && ((this.props.ctrlSend && e.ctrlKey) || !this.props.ctrlSend)) {
+        const ctrlOrMetaKeyPressed = e.ctrlKey || e.metaKey;
+        if (!UserAgent.isMobile() && ((this.props.ctrlSend && ctrlOrMetaKeyPressed) || !this.props.ctrlSend)) {
             if (e.which === KeyCodes.ENTER && !e.shiftKey && !e.altKey) {
                 e.preventDefault();
                 this.refs.textbox.blur();
@@ -329,7 +330,8 @@ export default class CreateComment extends React.PureComponent {
     }
 
     handleKeyDown = (e) => {
-        if (this.props.ctrlSend && e.keyCode === KeyCodes.ENTER && e.ctrlKey) {
+        const ctrlOrMetaKeyPressed = e.ctrlKey || e.metaKey;
+        if (this.props.ctrlSend && e.keyCode === KeyCodes.ENTER && ctrlOrMetaKeyPressed) {
             this.commentMsgKeyPress(e);
             return;
         }
